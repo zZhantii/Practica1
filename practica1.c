@@ -2,9 +2,16 @@
 #include <ctype.h>
 #include <string.h>
 
+#define CURRENT_YEAR 2025
+
+/* Practica1 - Programació I (2025-2026)
+ * Autors: Santiago Lozada
+ * Estratègia: lectura validada de cada parámetre amb bucles while i scanf, aplicació successiva de percentatges
+ */
+
 int main()
 {
-    printf("TARIFICADOR ASEGURADORAS SAFECARR");
+    printf("TARIFICADOR ASEGURADORAS SAFECAR\n");
 
     int reset = 0;
 
@@ -13,14 +20,8 @@ int main()
     float totalRiskWithDeductibleBase = 0.0;
     float totalRiskWithoutDeductibleBase = 0.0;
 
-    float basicThirdParty = 0.0;
-    float advancedThirdParty = 0.0;
-    float totalRiskWithDeductible = 0.0;
-    float totalRiskWithoutDeductible = 0.0;
-
-        while (!reset)
+    while (!reset)
     {
-        // Choose C or M
         char inputUser, lowerInputUser;
         char vehicle[10];
         int correctInput = 0;
@@ -42,18 +43,13 @@ int main()
                 lowerInputUser = tolower(inputUser);
                 if (lowerInputUser == 'c' || lowerInputUser == 'm')
                 {
-                    if (lowerInputUser == 'c') {
+                    if (lowerInputUser == 'c')
+                    {
                         strcpy(vehicle, "Cotxe");
                         basicThirdPartyBase = 200;
                         advancedThirdPartyBase = 230;
                         totalRiskWithDeductibleBase = 330;
                         totalRiskWithoutDeductibleBase = 400;
-
-                        // printf("Valores coche:\n");
-                        // printf("Basic Third Party: %.2f\n", basicThirdPartyBase);
-                        // printf("Advanced Third Party: %.2f\n", advancedThirdPartyBase);
-                        // printf("Total Risk With Deductible: %.2f\n", totalRiskWithDeductibleBase);
-                        // printf("Total Risk Without Deductible: %.2f\n", totalRiskWithoutDeductibleBase);
                     }
 
                     if (lowerInputUser == 'm')
@@ -63,12 +59,6 @@ int main()
                         advancedThirdPartyBase = 120;
                         totalRiskWithDeductibleBase = 200;
                         totalRiskWithoutDeductibleBase = 300;
-
-                        // printf("Valores moto:\n");
-                        // printf("Basic Third Party: %.2f\n", basicThirdPartyBase);
-                        // printf("Advanced Third Party: %.2f\n", advancedThirdPartyBase);
-                        // printf("Total Risk With Deductible: %.2f\n", totalRiskWithDeductibleBase);
-                        // printf("Total Risk Without Deductible: %.2f\n", totalRiskWithoutDeductibleBase);
                     }
 
                     correctInput = 1;
@@ -85,7 +75,6 @@ int main()
             }
         }
 
-        // Age
         int age = 0;
         correctInput = 0;
         attempt = 0;
@@ -105,36 +94,36 @@ int main()
             {
                 if (age >= 18 && age <= 80)
                 {
-                    if (age >= 18 && age <= 24) {
-                        basicThirdParty *= 1.7;
-                        advancedThirdParty *= 1.7;
-                        totalRiskWithDeductible *= 1.7;
-                        totalRiskWithoutDeductible *= 1.7;
+                    if (age >= 18 && age <= 24)
+                    {
+                        basicThirdPartyBase *= 1.7;
+                        advancedThirdPartyBase *= 1.7;
+                        totalRiskWithDeductibleBase *= 1.7;
+                        totalRiskWithoutDeductibleBase *= 1.7;
                     }
                     else if (age >= 25 && age <= 29)
                     {
-                        basicThirdParty *= 1.3;
-                        advancedThirdParty *= 1.3;
-                        totalRiskWithDeductible *= 1.3;
-                        totalRiskWithoutDeductible *= 1.3;
+                        basicThirdPartyBase *= 1.3;
+                        advancedThirdPartyBase *= 1.3;
+                        totalRiskWithDeductibleBase *= 1.3;
+                        totalRiskWithoutDeductibleBase *= 1.3;
                     }
                     else if (age >= 30 && age <= 39)
                     {
-                        basicThirdParty *= 1.1;
-                        advancedThirdParty *= 1.1;
-                        totalRiskWithDeductible *= 1.1;
-                        totalRiskWithoutDeductible *= 1.1;
+                        basicThirdPartyBase *= 1.1;
+                        advancedThirdPartyBase *= 1.1;
+                        totalRiskWithDeductibleBase *= 1.1;
+                        totalRiskWithoutDeductibleBase *= 1.1;
                     }
                     else if (age >= 40 && age <= 59)
                     {
-                    
                     }
                     else if (age >= 60 && age <= 80)
                     {
-                        basicThirdParty *= 1.2;
-                        advancedThirdParty *= 1.2;
-                        totalRiskWithDeductible *= 1.2;
-                        totalRiskWithoutDeductible *= 1.2;
+                        basicThirdPartyBase *= 1.2;
+                        advancedThirdPartyBase *= 1.2;
+                        totalRiskWithDeductibleBase *= 1.2;
+                        totalRiskWithoutDeductibleBase *= 1.2;
                     }
 
                     correctInput = 1;
@@ -146,11 +135,11 @@ int main()
             }
             else
             {
-                while (getchar() != '\n');
+                while (getchar() != '\n')
+                    ;
             }
         }
 
-        // Type Motor of vehicle
         int typeMotor = 0;
         correctInput = 0;
         attempt = 0;
@@ -180,36 +169,23 @@ int main()
                 switch (typeMotor)
                 {
                 case 1:
-                    // printf("motor de combustion");
 
                     correctInput = 1;
                     break;
                 case 2:
-                    // printf("motor de hybrido");
-                    basicThirdParty *= 0.9;
-                    advancedThirdParty *= 0.9;
-                    totalRiskWithDeductible *= 0.9;
-                    totalRiskWithoutDeductible *= 0.9;
+                    basicThirdPartyBase *= 0.9;
+                    advancedThirdPartyBase *= 0.9;
+                    totalRiskWithDeductibleBase *= 0.9;
+                    totalRiskWithoutDeductibleBase *= 0.9;
                     correctInput = 1;
 
-                    // printf("Valores con porcentaje:\n");
-                    // printf("Basic Third Party: %.2f\n", basicThirdParty);
-                    // printf("Advanced Third Party: %.2f\n", advancedThirdParty);
-                    // printf("Total Risk With Deductible: %.2f\n", totalRiskWithDeductible);
-                    // printf("Total Risk Without Deductible: %.2f\n", totalRiskWithoutDeductible);
                     break;
                 case 3:
-                    // printf("motor de electrico");
-                    basicThirdParty *= 0.8;
-                    advancedThirdParty *= 0.8;
-                    totalRiskWithDeductible *= 0.8;
-                    totalRiskWithoutDeductible *= 0.8;
+                    basicThirdPartyBase *= 0.8;
+                    advancedThirdPartyBase *= 0.8;
+                    totalRiskWithDeductibleBase *= 0.8;
+                    totalRiskWithoutDeductibleBase *= 0.8;
 
-                    // printf("Valores con porcentaje:\n");
-                    // printf("Basic Third Party: %.2f\n", basicThirdParty);
-                    // printf("Advanced Third Party: %.2f\n", advancedThirdParty);
-                    // printf("Total Risk With Deductible: %.2f\n", totalRiskWithDeductible);
-                    // printf("Total Risk Without Deductible: %.2f\n", totalRiskWithoutDeductible);
                     correctInput = 1;
                     break;
 
@@ -225,7 +201,6 @@ int main()
             }
         }
 
-        // year of manufacture
         int ageManufacture = 0;
         correctInput = 0;
         attempt = 0;
@@ -243,14 +218,15 @@ int main()
 
             if (scanf("%d", &ageManufacture))
             {
-                if (ageManufacture >= 1970 && ageManufacture <= 2025)
+                if (ageManufacture >= 1970 && ageManufacture <= CURRENT_YEAR)
                 {
-                    int vehicleAge = 2025 - ageManufacture;
-                    if (vehicleAge > 10) {
-                        totalRiskWithDeductible = 0;
-                        totalRiskWithoutDeductible = 0;
-                        basicThirdParty *= 1.1;
-                        advancedThirdParty *= 1.1;
+                    int vehicleAge = CURRENT_YEAR - ageManufacture;
+                    if (vehicleAge > 10)
+                    {
+                        totalRiskWithDeductibleBase = 0;
+                        totalRiskWithoutDeductibleBase = 0;
+                        basicThirdPartyBase *= 1.1;
+                        advancedThirdPartyBase *= 1.1;
                     }
 
                     correctInput = 1;
@@ -267,8 +243,8 @@ int main()
             }
         }
 
-        if (lowerInputUser == 'c') {
-            // vehicle use
+        if (lowerInputUser == 'c')
+        {
             int vehicleUse = 0;
             correctInput = 0;
             attempt = 0;
@@ -298,37 +274,22 @@ int main()
                     switch (vehicleUse)
                     {
                     case 1:
-                        // printf("Particular");
                         correctInput = 1;
                         break;
                     case 2:
-                        // printf("Lloguer");
-                        basicThirdParty *= 1.05;
-                        advancedThirdParty *= 1.05;
-                        totalRiskWithDeductible *= 1.05;
-                        totalRiskWithoutDeductible *= 1.05;
-                        correctInput = 1;
+                        basicThirdPartyBase *= 1.05;
+                        advancedThirdPartyBase *= 1.05;
+                        totalRiskWithDeductibleBase *= 1.05;
+                        totalRiskWithoutDeductibleBase *= 1.05;
 
-                        // printf("Valores con porcentaje:\n");
-                        // printf("Basic Third Party: %.2f\n", basicThirdParty);
-                        // printf("Advanced Third Party: %.2f\n", advancedThirdParty);
-                        // printf("Total Risk With Deductible: %.2f\n", totalRiskWithDeductible);
-                        // printf("Total Risk Without Deductible: %.2f\n", totalRiskWithoutDeductible);
                         correctInput = 1;
                         break;
                     case 3:
-                        // printf("Taxi");
-                        basicThirdParty *= 1.1;
-                        advancedThirdParty *= 1.1;
-                        totalRiskWithDeductible *= 1.1;
-                        totalRiskWithoutDeductible *= 1.1;
-                        correctInput = 1;
+                        basicThirdPartyBase *= 1.1;
+                        advancedThirdPartyBase *= 1.1;
+                        totalRiskWithDeductibleBase *= 1.1;
+                        totalRiskWithoutDeductibleBase *= 1.1;
 
-                        // printf("Valores con porcentaje:\n");
-                        // printf("Basic Third Party: %.2f\n", basicThirdParty);
-                        // printf("Advanced Third Party: %.2f\n", advancedThirdParty);
-                        // printf("Total Risk With Deductible: %.2f\n", totalRiskWithDeductible);
-                        // printf("Total Risk Without Deductible: %.2f\n", totalRiskWithoutDeductible);
                         correctInput = 1;
                         break;
 
@@ -345,15 +306,13 @@ int main()
             }
         }
 
-        
-        // displacement
         int engine = 0;
         correctInput = 0;
         attempt = 0;
 
         while (!correctInput)
         {
-            if (attempt == 0)
+            if (attempt == 0 && lowerInputUser == 'c')
             {
                 printf("Ús\n");
                 printf("1 - Menys o igual de 1.000cc\n");
@@ -371,92 +330,79 @@ int main()
                 printf("Escull l'opció del teu vehicle: ");
             }
 
+            if (attempt == 0 && lowerInputUser == 'm')
+            {
+                printf("Ús\n");
+                printf("1 - Menys de 125cc\n");
+                printf("2 - Menys de 500cc\n");
+                printf("3 - Menys de 1000cc\n");
+                printf("4 - Més de 1000cc\n");
+                printf("Escull l'opció del teu vehicle: ");
+            }
+            else
+            {
+                printf("Has d'escollir una opcion valida\n");
+                printf("Tipus de motor\n");
+                printf("1 - Menys de 125cc\n");
+                printf("2 - Menys de 500cc\n");
+                printf("3 - Menys de 1000cc\n");
+                printf("4 - Més de 1000cc\n");
+                printf("Escull l'opció del teu vehicle: ");
+            }
+
             if (scanf("%d", &engine))
             {
                 switch (engine)
                 {
                 case 1:
-                    // printf("Menys o igual de 1.000cc");
-                    if (lowerInputUser == 'm')
-                    {
-                        basicThirdParty *= 1.1;
-                        advancedThirdParty *= 1.1;
-                        totalRiskWithDeductible *= 1.1;
-                        totalRiskWithoutDeductible *= 1.1;
-                        correctInput = 1;
-
-                        // printf("Valores con porcentaje:\n");
-                        // printf("Basic Third Party: %.2f\n", basicThirdParty);
-                        // printf("Advanced Third Party: %.2f\n", advancedThirdParty);
-                        // printf("Total Risk With Deductible: %.2f\n", totalRiskWithDeductible);
-                        // printf("Total Risk Without Deductible: %.2f\n", totalRiskWithoutDeductible);
-                    }
                     correctInput = 1;
                     break;
                 case 2:
-                    // printf("Més de 1.000 i menys o igual de 2.000cc");
                     if (lowerInputUser == 'c')
                     {
-                        basicThirdParty *= 1.1;
-                        advancedThirdParty *= 1.1;
-                        totalRiskWithDeductible *= 1.1;
-                        totalRiskWithoutDeductible *= 1.1;
-                        correctInput = 1;
-
-                        // printf("Valores con porcentaje:\n");
-                        // printf("Basic Third Party: %.2f\n", basicThirdParty);
-                        // printf("Advanced Third Party: %.2f\n", advancedThirdParty);
-                        // printf("Total Risk With Deductible: %.2f\n", totalRiskWithDeductible);
-                        // printf("Total Risk Without Deductible: %.2f\n", totalRiskWithoutDeductible);
+                        basicThirdPartyBase *= 1.1;
+                        advancedThirdPartyBase *= 1.1;
+                        totalRiskWithDeductibleBase *= 1.1;
+                        totalRiskWithoutDeductibleBase *= 1.1;
                     }
 
                     if (lowerInputUser == 'm')
                     {
-                        basicThirdParty *= 1.15;
-                        advancedThirdParty *= 1.15;
-                        totalRiskWithDeductible *= 1.15;
-                        totalRiskWithoutDeductible *= 1.15;
-                        correctInput = 1;
-
-                        // printf("Valores con porcentaje:\n");
-                        // printf("Basic Third Party: %.2f\n", basicThirdParty);
-                        // printf("Advanced Third Party: %.2f\n", advancedThirdParty);
-                        // printf("Total Risk With Deductible: %.2f\n", totalRiskWithDeductible);
-                        // printf("Total Risk Without Deductible: %.2f\n", totalRiskWithoutDeductible);
+                        basicThirdPartyBase *= 1.1;
+                        advancedThirdPartyBase *= 1.1;
+                        totalRiskWithDeductibleBase *= 1.1;
+                        totalRiskWithoutDeductibleBase *= 1.1;
                     }
                     correctInput = 1;
                     break;
                 case 3:
-                    // printf("Més de 3.000cc");
-                    if (lowerInputUser == 'c') {
-                        basicThirdParty *= 1.2;
-                        advancedThirdParty *= 1.2;
-                        totalRiskWithDeductible *= 1.2;
-                        totalRiskWithoutDeductible *= 1.2;
-                        correctInput = 1;
-
-                        // printf("Valores con porcentaje:\n");
-                        // printf("Basic Third Party: %.2f\n", basicThirdParty);
-                        // printf("Advanced Third Party: %.2f\n", advancedThirdParty);
-                        // printf("Total Risk With Deductible: %.2f\n", totalRiskWithDeductible);
-                        // printf("Total Risk Without Deductible: %.2f\n", totalRiskWithoutDeductible);
+                    if (lowerInputUser == 'c')
+                    {
+                        basicThirdPartyBase *= 1.2;
+                        advancedThirdPartyBase *= 1.2;
+                        totalRiskWithDeductibleBase *= 1.2;
+                        totalRiskWithoutDeductibleBase *= 1.2;
                     }
 
                     if (lowerInputUser == 'm')
                     {
-                        basicThirdParty *= 1.3;
-                        advancedThirdParty *= 1.3;
-                        totalRiskWithDeductible *= 1.3;
-                        totalRiskWithoutDeductible *= 1.3;
-                        correctInput = 1;
-
-                        // printf("Valores con porcentaje:\n");
-                        // printf("Basic Third Party: %.2f\n", basicThirdParty);
-                        // printf("Advanced Third Party: %.2f\n", advancedThirdParty);
-                        // printf("Total Risk With Deductible: %.2f\n", totalRiskWithDeductible);
-                        // printf("Total Risk Without Deductible: %.2f\n", totalRiskWithoutDeductible);
+                        basicThirdPartyBase *= 1.15;
+                        advancedThirdPartyBase *= 1.15;
+                        totalRiskWithDeductibleBase *= 1.15;
+                        totalRiskWithoutDeductibleBase *= 1.15;
                     }
                     correctInput = 1;
+                    break;
+
+                case 4:
+                    if (lowerInputUser == 'm')
+                    {
+                        basicThirdPartyBase *= 1.3;
+                        advancedThirdPartyBase *= 1.3;
+                        totalRiskWithDeductibleBase *= 1.3;
+                        totalRiskWithoutDeductibleBase *= 1.3;
+                        correctInput = 1;
+                    }
                     break;
 
                 default:
@@ -466,25 +412,25 @@ int main()
             }
             else
             {
-                while (getchar() != '\n');
+                while (getchar() != '\n')
+                    ;
             }
         }
 
-        // display
-        float basicThirdPartyMonth = basicThirdPartyBase * 1.06;
-        float advancedThirdPartyMonth = advancedThirdPartyBase * 1.06;
-        float totalRiskWithDeductibleMonth = totalRiskWithDeductibleBase * 1.06;
-        float totalRiskWithoutDeductibleMonth = totalRiskWithoutDeductibleBase;
+        float basicThirdPartyMonth = basicThirdPartyBase * 1.06f;
+        float advancedThirdPartyMonth = advancedThirdPartyBase * 1.06f;
+        float totalRiskWithDeductibleMonth = totalRiskWithDeductibleBase * 1.06f;
+        float totalRiskWithoutDeductibleMonth = totalRiskWithoutDeductibleBase * 1.06f;
 
-        float basicThirdPartyTrimestral = basicThirdPartyBase * 1.04;
-        float advancedThirdPartyTrimestral = advancedThirdPartyBase * 1.04;
-        float totalRiskWithDeductibleTrimestral = totalRiskWithDeductibleBase * 1.04;
-        float totalRiskWithoutDeductibleTrimestral = totalRiskWithoutDeductibleBase;
+        float basicThirdPartyTrimestral = basicThirdPartyBase * 1.04f;
+        float advancedThirdPartyTrimestral = advancedThirdPartyBase * 1.04f;
+        float totalRiskWithDeductibleTrimestral = totalRiskWithDeductibleBase * 1.04f;
+        float totalRiskWithoutDeductibleTrimestral = totalRiskWithoutDeductibleBase * 1.04f;
 
-        float basicThirdPartySemestral = basicThirdPartyBase * 1.02;
-        float advancedThirdPartySemestral = advancedThirdPartyBase * 1.02;
-        float totalRiskWithDeductibleSemestral = totalRiskWithDeductibleBase * 1.02;
-        float totalRiskWithoutDeductibleSemestral = totalRiskWithoutDeductibleBase;
+        float basicThirdPartySemestral = basicThirdPartyBase * 1.02f;
+        float advancedThirdPartySemestral = advancedThirdPartyBase * 1.02f;
+        float totalRiskWithDeductibleSemestral = totalRiskWithDeductibleBase * 1.02f;
+        float totalRiskWithoutDeductibleSemestral = totalRiskWithoutDeductibleBase * 1.02f;
 
         float basicThirdPartyYear = basicThirdPartyBase;
         float advancedThirdPartyYear = advancedThirdPartyBase;
@@ -495,7 +441,6 @@ int main()
 
         if (lowerInputUser == 'c')
         {
-            // COCHE
             printf("| %-13s | %-13s | %-15s | %-28s | %-22s |\n",
                    "Fraccionament", "Tercers bàsic", "Tercers avançat",
                    "Tot risc amb franquícia (200€)", "Tot risc sense franquícia");
@@ -504,19 +449,21 @@ int main()
             printf("| %-13s | %13.2f € | %15.2f € | %28.2f € | %22.2f € |\n",
                    "MENSUAL", basicThirdPartyMonth, advancedThirdPartyMonth,
                    totalRiskWithDeductibleMonth, totalRiskWithoutDeductibleMonth);
+
             printf("| %-13s | %13.2f € | %15.2f € | %28.2f € | %22.2f € |\n",
                    "TRIMESTRAL", basicThirdPartyTrimestral, advancedThirdPartyTrimestral,
                    totalRiskWithDeductibleTrimestral, totalRiskWithoutDeductibleTrimestral);
+
             printf("| %-13s | %13.2f € | %15.2f € | %28.2f € | %22.2f € |\n",
                    "SEMESTRAL", basicThirdPartySemestral, advancedThirdPartySemestral,
                    totalRiskWithDeductibleSemestral, totalRiskWithoutDeductibleSemestral);
+
             printf("| %-13s | %13.2f € | %15.2f € | %28.2f € | %22.2f € |\n",
                    "ANUAL", basicThirdPartyYear, advancedThirdPartyYear,
                    totalRiskWithDeductibleYear, totalRiskWithoutDeductibleYear);
         }
         else
         {
-            // MOTO 
             printf("| %-13s | %-13s | %-15s |\n",
                    "Fraccionament", "Tercers bàsic", "Tercers avançat");
             printf("---------------------------------------------------------------\n");
@@ -533,7 +480,6 @@ int main()
 
         printf("----------------------------------------------------------------------------------------------------------------\n");
 
-        // Reset
         char inputUser2, lowerInputUser2;
         correctInput = 0;
         attempt = 0;
@@ -549,12 +495,12 @@ int main()
                 printf("Prem S o N: ");
             }
 
-            if (scanf(" %c", &inputUser))
+            if (scanf(" %c", &inputUser2))
             {
-                lowerInputUser = tolower(inputUser);
-                if (lowerInputUser == 's' || lowerInputUser == 'n')
+                lowerInputUser2 = tolower(inputUser2);
+                if (lowerInputUser2 == 's' || lowerInputUser2 == 'n')
                 {
-                    if (lowerInputUser == 'n')
+                    if (lowerInputUser2 == 'n')
                     {
                         printf("Moltes gràcies per utilitzar el nostre tarificador. Fins la pròxima! Assegurances SafeCar");
                         correctInput = 1;
