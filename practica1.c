@@ -9,6 +9,9 @@
  * Estratègia: lectura validada de cada parámetre amb bucles while i scanf, aplicació successiva de percentatges
  */
 
+// Mejorar implementacion del while, no repetir tanto while, crear una funcion para reciclar
+// Cambiar 0 y 1 por bools
+
 int main()
 {
     printf("TARIFICADOR ASEGURADORAS SAFECAR\n");
