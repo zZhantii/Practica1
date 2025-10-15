@@ -1,8 +1,8 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
 #include <ctype.h>
 #include <string.h>
-#include <stdbool.h>
-#include <stdlib.h>
 
 #define CURRENT_YEAR 2025
 
@@ -14,46 +14,9 @@
 // Mejorar implementacion del while, no repetir tanto while, crear una funcion para reciclar
 // Cambiar 0 y 1 por bools
 
+char vehicleType;
 
 const char *validateOptions = "cmsn";
-
-void getValidatedInput(int type, void* value)
-{
-    bool done = false;
-    do
-    {
-        if (type == 1)
-        { // entero
-            int *intValue = (int *)value;
-            if (validatedInt(*intValue, 18, 80))
-            {
-                printf("Número válido: %d\n", *intValue);
-                done = true;
-            }
-            else
-            {
-                printf("Número no válido. Intenta de nuevo: ");
-                scanf("%d", intValue);
-            }
-        }
-        else if (type == 2)
-        { // carácter
-            char *charValue = (char *)value;
-            if (validatedChar(*charValue))
-            {
-                printf("Carácter válido: %c\n", *charValue);
-                done = true;
-            }
-            else
-            {
-                printf("Carácter no válido. Intenta de nuevo: ");
-                scanf(" %c", charValue);
-            }
-        }
-
-        done = true;
-    } while (!done);
-}
 
 bool validatedInt(int value, int min, int max)
 {
@@ -66,20 +29,187 @@ bool validatedChar(char value)
     return strchr(validateOptions, value) != NULL;
 }
 
-char inputUser;
+void getValidatedInput(int type, void* value)
+{
+    bool done = false;
+    do
+    {
+        // VehicleType
+        if (type == 1)
+        {
+            char *charValue = (char *)value;
+            if (validatedChar(*charValue))
+            {
+                printf("Carácter válido: %c\n", *charValue);
+                done = true;
+            }
+            else
+            {
+                printf("Prem C o M: ");
+                scanf(" %c", charValue);
+            }
+            
+        }
+        // Age
+        else if (type == 2)
+        {
+            int *intValue = (int *)value;
+            if (validatedInt(*intValue, 18, 80))
+            {
+                printf("Número válido: %d\n", *intValue);
+                done = true;
+            }
+            else
+            {
+                printf("Introdueix una edat vàlida. No assegurem a menors de 18 ni majors de 80: ");
+                scanf("%d", intValue);
+            }
+        } 
+        // EngineType
+        else if (type == 3) 
+        {
+            int *intValue = (int *)value;
+            if (validatedInt(*intValue, 1, 3)) {
+                printf("Número válido: %d\n", *intValue);
+                done = true;
+            } else {
+                printf("Escull la opció 1, 2 o 3: ");
+                scanf("%d", intValue);
+            }
+        }
+        
+        // Year Manufacture
+        else if (type == 4) {
+            int *intValue = (int *)value;
+            if (validatedInt(*intValue, 1970, CURRENT_YEAR)) {
+                printf("Número válido: %d\n", *intValue);
+                done = true;
+            } else {
+                printf("Introdueix un any entre 1970 i 2025: ");
+                scanf("%d", intValue);
+            }
+        }
+        // Us
+        else if (type == 5)
+        {
+            int *intValue = (int *)value;
+            if (validatedInt(*intValue, 1, 3))
+            {
+                printf("Número válido: %d\n", *intValue);
+                done = true;
+            }
+            else
+            {
+                printf("Escull la opció 1, 2 o 3: ");
+                scanf("%d", intValue);
+            }
+        }
+        // EngineCapacity
+        else if (type == 6)
+        {
+            int *intValue = (int *)value;
+            if (vehicleType == 'c') {
+                if (validatedInt(*intValue, 1, 3))
+                {
+                    printf("Número válido: %d\n", *intValue);
+                    done = true;
+                }
+                else
+                {
+                    printf("Escull la opció 1, 2 o 3: ");
+                    scanf("%d", intValue);
+                }
+            } else if (vehicleType == 'm')
+            {
+                if (validatedInt(*intValue, 1, 4))
+                {
+                    printf("Número válido: %d\n", *intValue);
+                    done = true;
+                }
+                else
+                {
+                    printf("Escull la opció 1, 2, 3 o 4: ");
+                    scanf("%d", intValue);
+                }
+            }
+            
+            
+        }
+
+    } while (!done);
+}
+
+
+char vehicleType;
 int age;
+int engineType;
+int manufactureYear;
+int uso;
+int EngineCapacity;
+char reset;
 
 int main()
 {
     printf("TARIFICADOR ASEGURADORAS SAFECAR\n");
 
+    // VehicleType
     printf("Vols assegurar un [C]otxe o una [M]oto? Prem C o M: ");
-    scanf(" %c", &inputUser);
-    getValidatedInput(2, &inputUser);
+    scanf(" %c", &vehicleType);
+    getValidatedInput(1, &vehicleType);
 
+    // Age
     printf("Edat conductor (18-80): ");
     scanf("%d", &age);
-    getValidatedInput(1, &age);
+    getValidatedInput(2, &age);
+
+    // EngineType
+    printf("Tipus de motor\n");
+    printf("1 - Combustió (diesel o gasolina)\n");
+    printf("2 - Híbrid\n");
+    printf("3 - Elèctric\n");
+    printf("Escull la opció 1, 2 o 3: ");
+    scanf("%d", &engineType);
+    getValidatedInput(3, &engineType);
+
+    // Year manufacture
+    printf("Any de fabricació del vehicle (1970-2025): ");
+    scanf("%d", &manufactureYear);
+    getValidatedInput(4, &manufactureYear);
+
+    // Uso
+    printf("Ús:\n");
+    printf("1 - Particular\n");
+    printf("2 - Lloguer\n");
+    printf("3 - Taxi\n");
+    printf("Escull la opció 1, 2 o 3: ");
+    getValidatedInput(5, &uso);
+
+    // Engine capacity
+
+    if (vehicleType == 'c') {
+        // Car
+        printf("Tipus de motor:\n");
+        printf("1 - Menys o igual de 1.000cc\n");
+        printf("2 - Més de 1.000 i menys o igual de 2.000cc\n");
+        printf("3 - Més de 3.000cc\n");
+        printf("Escull la opció 1, 2 o 3: ");
+        getValidatedInput(6, &EngineCapacity);
+    } else if (vehicleType == 'm') {
+        // Bike
+        printf("Tipus de motor:\n");
+        printf("1 - Menys de 125cc\n");
+        printf("2 - Menys de 500cc\n");
+        printf("3 - Menys de 1000cc\n");
+        printf("4 - Més de 1000cc\n");
+        printf("Escull la opció 1, 2, 3 o 4: ");
+        getValidatedInput(6, &EngineCapacity);
+    }
+
+    // Reset
+
+    printf("Vols calcular el preu per un altre vehicle (S)í o (N)o? Prem S o N: ");
+    scanf(" %c", &reset);
+    // reset();
 
     // int reset = false;
 
