@@ -275,8 +275,7 @@ void getValidatedInput(int type, void *value, const char *validatedOptions, char
         }
 
         while (getchar() != '\n')
-            ; // Limpiar buffer
-
+            ; 
     } while (!done);
 }
 
@@ -455,7 +454,6 @@ int main()
     while (continueProgram)
     {
         // VehicleType
-        // printf("Vols assegurar un [C]otxe o una [M]oto? Prem C o M: ");
         getValidatedInput(1, &vehicleType, validateOptions, '\0');
 
         if (vehicleType == 'c')
@@ -474,7 +472,6 @@ int main()
         }
 
         // Age
-        // printf("Edat conductor (18-80): ");
         getValidatedInput(2, &age, NULL, vehicleType);
 
         applyAgeModifier(&basicThirdParty, age);
@@ -491,7 +488,6 @@ int main()
         applyEngineTypeModifier(&riskWithoutDeductible, engineType);
 
         // Year manufacture
-        // printf("Any de fabricació del vehicle (1970-2025): ");
         getValidatedInput(4, &manufactureYear, NULL, vehicleType);
 
         applyYearModifier(&basicThirdParty, &showAllRisks, manufactureYear);
