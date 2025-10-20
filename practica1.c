@@ -279,86 +279,86 @@ void getValidatedInput(int type, void *value, const char *validatedOptions, char
     } while (!done);
 }
 
-void applyAgeModifier(float *prices, int age)
+void applyAgeModifier(float *porcentaje, int age)
 {
     if (age >= 18 && age <= 24)
     {
-        *prices *= 1.7f;
+        *porcentaje += 0.7f;
     }
     else if (age >= 25 && age <= 29)
     {
-        *prices *= 1.3f;
+        *porcentaje += 0.3f;
     }
     else if (age >= 30 && age <= 39)
     {
-        *prices *= 1.1f;
+        *porcentaje += 0.1f;
     }
     else if (age >= 60 && age <= 80)
     {
-        *prices *= 1.2f;
+        *porcentaje += 0.2f;
     }
 }
 
-void applyEngineTypeModifier(float *prices, int engineType)
+void applyEngineTypeModifier(float *porcentaje, int engineType)
 {
     if (engineType == 2)
     { 
-        *prices *= 0.9f;
+        *porcentaje -= 0.1f;
     }
     else if (engineType == 3)
     { 
-        *prices *= 0.8f;
+        *porcentaje -= 0.2f;
     }
 }
 
-void applyYearModifier(float *prices, bool *showAllRisks, int manufactureYear)
+void applyYearModifier(float *porcentaje, bool *showAllRisks, int manufactureYear)
 {
     int vehicleAge = CURRENT_YEAR - manufactureYear;
     if (vehicleAge > 10)
     {
         *showAllRisks = false;
-        *prices *= 1.1f;
+        *porcentaje += 0.1f;
     }
 }
 
-void applyUseModifier(float *prices, int uso)
+void applyUseModifier(float *porcentaje, int uso)
 {
     if (uso == 2)
     { 
-        *prices *= 1.05f;
+        *porcentaje += 0.05f;
     }
     else if (uso == 3)
     { 
-        *prices *= 1.1f;
+        *porcentaje += 0.1f;
     }
 }
 
-void applyEngineCapacityModifier(float *prices, int vehicleType, int EngineCapacity)
+void applyEngineCapacityModifier(float *porcentaje, int vehicleType, int EngineCapacity)
 {
     if (vehicleType == 'c')
     {
         if (EngineCapacity == 2)
         {
-            *prices *= 1.1f;
+            *porcentaje += 0.1f;
         }
         else if (EngineCapacity == 3)
         {
-            *prices *= 1.2f;
+            *porcentaje += 0.2f;
         }
     }
     else
     {
         if (EngineCapacity == 2)
         {
-            *prices *= 1.1f;
+            *porcentaje += 0.1f;
         }
         else if (EngineCapacity == 3)
         {
-            *prices *= 1.15f;
+            *porcentaje += 0.15f;
         }
         else if (EngineCapacity == 4)
         {
-            *prices *= 1.3f;
+            *porcentaje += 0.3f;
         }
     }
 }
@@ -443,6 +443,8 @@ int main()
     float riskWithDeductible;
     float riskWithoutDeductible;
 
+    float porcentaje = 1;
+
     bool showAllRisks = true;
 
     printf("\n");
@@ -474,44 +476,34 @@ int main()
         // Age
         getValidatedInput(2, &age, NULL, vehicleType);
 
-        applyAgeModifier(&basicThirdParty, age);
-        applyAgeModifier(&advancedThirdParty, age);
-        applyAgeModifier(&riskWithDeductible, age);
-        applyAgeModifier(&riskWithoutDeductible, age);
+        applyAgeModifier(&porcentaje, age);
 
         // EngineType
         getValidatedInput(3, &engineType, NULL, vehicleType);
 
-        applyEngineTypeModifier(&basicThirdParty, engineType);
-        applyEngineTypeModifier(&advancedThirdParty, engineType);
-        applyEngineTypeModifier(&riskWithDeductible, engineType);
-        applyEngineTypeModifier(&riskWithoutDeductible, engineType);
+        applyEngineTypeModifier(&porcentaje, engineType);
 
         // Year manufacture
         getValidatedInput(4, &manufactureYear, NULL, vehicleType);
 
-        applyYearModifier(&basicThirdParty, &showAllRisks, manufactureYear);
-        applyYearModifier(&advancedThirdParty, &showAllRisks, manufactureYear);
-        applyYearModifier(&riskWithDeductible, &showAllRisks, manufactureYear);
-        applyYearModifier(&riskWithoutDeductible, &showAllRisks, manufactureYear);
+        applyYearModifier(&porcentaje, &showAllRisks, manufactureYear);
 
         // Uso
         if (vehicleType == 'c')
         {
             getValidatedInput(5, &uso, NULL, vehicleType);
-            applyUseModifier(&basicThirdParty, uso);
-            applyUseModifier(&advancedThirdParty, uso);
-            applyUseModifier(&riskWithDeductible, uso);
-            applyUseModifier(&riskWithoutDeductible, uso);
+            applyUseModifier(&porcentaje, uso);
         }
 
         // Engine capacity
         getValidatedInput(6, &EngineCapacity, NULL, vehicleType);
 
-        applyEngineCapacityModifier(&basicThirdParty, vehicleType, EngineCapacity);
-        applyEngineCapacityModifier(&advancedThirdParty, vehicleType, EngineCapacity);
-        applyEngineCapacityModifier(&riskWithDeductible, vehicleType, EngineCapacity);
-        applyEngineCapacityModifier(&riskWithoutDeductible, vehicleType, EngineCapacity);
+        applyEngineCapacityModifier(&porcentaje, vehicleType, EngineCapacity);
+
+        basicThirdParty *= porcentaje;
+        advancedThirdParty *= porcentaje;
+        riskWithDeductible *= porcentaje;
+        riskWithoutDeductible *= porcentaje;
 
         displayPrices(basicThirdParty, advancedThirdParty,
                       riskWithDeductible, riskWithoutDeductible,
@@ -527,6 +519,7 @@ int main()
             manufactureYear = 0;
             uso = 0;
             EngineCapacity = 0;
+            porcentaje = 1;
         }
     }
 }
