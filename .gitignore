@@ -1,1 +1,7 @@
-.practica1
+practica1
+practica1.exe
+*.o
+*.obj
+*.exe
+*.out
+.vscode/
