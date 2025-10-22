@@ -1,7 +1,23 @@
+/*
+ * Pràctica 1 - Tarificador d'Assegurances SafeCar
+ *
+ * Autors:
+ * - Santiago Lozada Benitez
+ *
+ * Estratègia:
+ * El programa implementa un tarificador d'assegurances seguint aquests passos:
+ * 1. Recollida de dades del vehicle i conductor mitjançant validació d'entrada
+ * 2. Càlcul del preu base segons tipus de vehicle (cotxe/moto)
+ * 3. Aplicació de modificadors amb diferents tipus de funcions
+ * 4. Sumar tots el porcentatjes a una mateixa variable i multiplicarla per la base
+ * 4. Càlcul final amb diferents opcions de fraccionament
+ * 5. Presentació dels resultats en format de taula
+ */
+
 #include <stdio.h>
-
+// Constante para año
 #define CURRENT_YEAR 2025
-
+// Funcion para devolver el porcentaje segun la edad
 float edadConductor(int edad) {
   if (edad >= 18 && edad <= 24) {
     return 0.70f;
@@ -15,7 +31,7 @@ float edadConductor(int edad) {
     return 0.20f;
   }
 }
-
+// Funcion para devolver el porcentaje segun el motor
 float tipoMotor(int opcion) {
   switch (opcion) {
   case 1:
@@ -35,7 +51,7 @@ float tipoMotor(int opcion) {
     break;
   }
 }
-
+// Funcion para devolver el porcentaje segun el uso
 float usoVehiculo(int opcion) {
   switch (opcion) {
   case 1:
@@ -55,7 +71,7 @@ float usoVehiculo(int opcion) {
     break;
   }
 }
-
+// Funcion para devolver el porcentaje segun la cilindrada
 float cilindradaVehiculo(int opcion, char tipo) {
   if (tipo == 'm' || tipo == 'M') {
     switch (opcion) {
@@ -105,9 +121,9 @@ int main(void) {
   float tercerosAvanzados = 0.0f;
   float todoRiesgoConFranquicia = 0.0f;
   float todoRiesgoSinFranquicia = 0.0f;
-
+  // Variable para obtener el porcentaje total
   float porcentajeTotal = 1.0f;
-
+  // Variables para recoger las entradas del usuario
   int intValue = 0;
   char charValue = ' ';
 
@@ -115,12 +131,13 @@ int main(void) {
   int hecho = 0;
 
   do {
+    // Reinicio de variables
     porcentajeTotal = 1.0f;
     hecho = 0;
 
     // Primer opcion
     printf("- Vols assegurar un [C]otxe o una [M]oto? Prem C o M: ");
-
+    // Bucle para esperar a la entrada del usuario
     while (!hecho) {
       if (scanf(" %c", &charValue) == 1) {
         if (getchar() != '\n') {
@@ -161,9 +178,7 @@ int main(void) {
     while (!hecho) {
       scanf("%d", &intValue);
       if (intValue >= 18 && intValue <= 80) {
-        printf("porcentaje %f \n", porcentajeTotal);
         porcentajeTotal += edadConductor(intValue);
-        printf("porcentaje %f \n", porcentajeTotal);
         hecho = 1;
       } else {
         printf("Introdueix una edat vàlida. No assegurem a menors de 18 ni "
@@ -188,9 +203,7 @@ int main(void) {
     while (!hecho) {
       scanf("%d", &intValue);
       if (intValue >= 1 && intValue <= 3) {
-        printf("porcentaje %f \n", porcentajeTotal);
         porcentajeTotal -= tipoMotor(intValue);
-        printf("porcentaje %f \n", porcentajeTotal);
         hecho = 1;
       } else {
         printf("Escull la opció 1, 2 o 3: ");
@@ -210,11 +223,11 @@ int main(void) {
       scanf("%d", &intValue);
       if (intValue >= 1970 && intValue <= CURRENT_YEAR) {
         anyoFabricacion = intValue;
-
+        // Comprovar que si el vehiculo tiene más de 10 años de antiguedad
         if ((CURRENT_YEAR - intValue) > 10) {
-          printf("porcentaje %f \n", porcentajeTotal);
+
           porcentajeTotal += 0.10f;
-          printf("porcentaje %f \n", porcentajeTotal);
+
           esVehiculoAntiguo = 1;
         }
 
@@ -242,9 +255,9 @@ int main(void) {
       while (!hecho) {
         scanf("%d", &intValue);
         if (intValue >= 1 && intValue <= 3) {
-          printf("porcentaje %f \n", porcentajeTotal);
+
           porcentajeTotal += usoVehiculo(intValue);
-          printf("porcentaje %f \n", porcentajeTotal);
+
           hecho = 1;
         } else {
           printf("Escull la opció 1, 2 o 3: ");
@@ -256,7 +269,7 @@ int main(void) {
 
     // Cilindrada
     hecho = 0;
-
+    // Verificar que tipo de vehiculo se ha seleccionado, para mostrar el menu adecuado
     if (charValue == 'm' || charValue == 'M') {
       printf("┌──────────────────────────────────┐\n");
       printf("│          Cilindrada Moto         │\n");
@@ -271,9 +284,9 @@ int main(void) {
       while (!hecho) {
         scanf("%d", &intValue);
         if (intValue >= 1 && intValue <= 4) {
-          printf("porcentaje %f \n", porcentajeTotal);
+
           porcentajeTotal += cilindradaVehiculo(intValue, charValue);
-          printf("porcentaje %f \n", porcentajeTotal);
+
           hecho = 1;
         } else {
           printf("Escull la opció 1, 2, 3 o 4: ");
@@ -294,9 +307,9 @@ int main(void) {
       while (!hecho) {
         scanf("%d", &intValue);
         if (intValue >= 1 && intValue <= 3) {
-          printf("porcentaje %f \n", porcentajeTotal);
+
           porcentajeTotal += cilindradaVehiculo(intValue, charValue);
-          printf("porcentaje %f \n", porcentajeTotal);
+
           hecho = 1;
         } else {
           printf("Escull la opció 1, 2 o 3: ");
@@ -314,6 +327,7 @@ int main(void) {
         printf("| Fraccionament | Tercers bàsic | Tercers avançat |\n");
         printf("---------------------------------------------------------------"
                "-----\n");
+              // %11.2f significa el margen que hay (caracteres blancos) y la cantidad de decimales para mostrar
         printf("| MENSUAL      | %11.2f€ | %13.2f€ |\n",
                (tercerosbasicos * porcentajeTotal) * 1.06,
                (tercerosAvanzados * porcentajeTotal) * 1.06);
@@ -331,7 +345,7 @@ int main(void) {
         printf("NOTA: Els vehicles de més de 10 anys no poden contractar tot "
                "risc.\n");
       } else {
-        // Para vehículos nuevos: mostrar todas las opciones
+        // Vehiculos con menos de 10 años
         printf("\n-------------------------------------------------------------"
                "---------------------------------------------------\n");
         printf("| Fraccionament | Tercers bàsic | Tercers avançat | Tot risc "
@@ -362,6 +376,7 @@ int main(void) {
                "-------------------------------------------------\n");
       }
     } else {
+      // Motos
       printf("\n------------------------------------------------\n");
       printf("| Fraccionament | Tercers bàsic | Tercers avançat |\n");
       printf("------------------------------------------------\n");
@@ -381,8 +396,7 @@ int main(void) {
     }
 
     // Reinicio
-    printf("- Vols calcular el preu per un altre vehicle (S)í o (N)o? Prem S o "
-           "N: ");
+    printf("- Vols calcular el preu per un altre vehicle (S)í o (N)o? Prem S o N: ");
 
     hecho = 0;
 
@@ -418,3 +432,4 @@ int main(void) {
 
   } while (reset == 1);
 }
+
