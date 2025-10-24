@@ -9,7 +9,8 @@
  * 1. Recollida de dades del vehicle i conductor mitjançant validació d'entrada
  * 2. Càlcul del preu base segons tipus de vehicle (cotxe/moto)
  * 3. Aplicació de modificadors amb diferents tipus de funcions
- * 4. Sumar tots el porcentatjes a una mateixa variable i multiplicarla per la base
+ * 4. Sumar tots el porcentatjes a una mateixa variable i multiplicarla per la
+ * base
  * 4. Càlcul final amb diferents opcions de fraccionament
  * 5. Presentació dels resultats en format de taula
  */
@@ -269,7 +270,8 @@ int main(void) {
 
     // Cilindrada
     hecho = 0;
-    // Verificar que tipo de vehiculo se ha seleccionado, para mostrar el menu adecuado
+    // Verificar que tipo de vehiculo se ha seleccionado, para mostrar el menu
+    // adecuado
     if (charValue == 'm' || charValue == 'M') {
       printf("┌──────────────────────────────────┐\n");
       printf("│          Cilindrada Moto         │\n");
@@ -327,7 +329,8 @@ int main(void) {
         printf("| Fraccionament | Tercers bàsic | Tercers avançat |\n");
         printf("---------------------------------------------------------------"
                "-----\n");
-              // %11.2f significa el margen que hay (caracteres blancos) y la cantidad de decimales para mostrar
+        // %11.2f significa el margen que hay (caracteres blancos) y la cantidad
+        // de decimales para mostrar
         printf("| MENSUAL      | %11.2f€ | %13.2f€ |\n",
                (tercerosbasicos * porcentajeTotal) * 1.06,
                (tercerosAvanzados * porcentajeTotal) * 1.06);
@@ -396,7 +399,8 @@ int main(void) {
     }
 
     // Reinicio
-    printf("- Vols calcular el preu per un altre vehicle (S)í o (N)o? Prem S o N: ");
+    printf("- Vols calcular el preu per un altre vehicle (S)í o (N)o? Prem S o "
+           "N: ");
 
     hecho = 0;
 
@@ -432,4 +436,3 @@ int main(void) {
 
   } while (reset == 1);
 }
-
